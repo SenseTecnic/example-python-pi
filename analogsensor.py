@@ -11,23 +11,15 @@ except ImportError:
     import simplejson as json
 
 GPIO.setmode(GPIO.BCM)
+LIGHT_SENSOR_PIN = 4
 
 #TODO: ADD YOUR SENSOR NAME AND CREDENTIALS
 SENSOR_NAME = ''
 USERNAME = ''
 PASSWORD = ''
-
 HOST = "wotkit.sensetecnic.com"
 URL = "/api/v1/sensors/%s/data" % SENSOR_NAME
 
-LIGHT_SENSOR_PIN = 4
-
-def getLight(sensor_data):
-    chargeTime = RCtime(LIGHT_SENSOR_PIN)
-    # transorming time in capacitor charge to light values
-    light = (  chargeTime * -1 ) + 200000
-    sensor_data['light'] = light
-    sensor_data['value'] = light
 
 # Utility function to measure analogue sensors via digital pins
 # it charges a capacitor and measures the time it takes to uncharge
@@ -48,6 +40,13 @@ def RCtime (PiPin):
     while (GPIO.input(PiPin) == GPIO.LOW):
       measurement += 1
     return measurement
+
+def getLight(sensor_data):
+    chargeTime = RCtime(LIGHT_SENSOR_PIN)
+    # transorming time in capacitor charge to light values
+    light = (  chargeTime * -1 ) + 200000
+    sensor_data['light'] = light
+    sensor_data['value'] = light
 
 def main():
 
