@@ -25,9 +25,6 @@ URL = "/api/v1/sensors/%s/data" % SENSOR_NAME
 # it charges a capacitor and measures the time it takes to uncharge
 # giving an idea of the value in the analogue sensor.
 def RCtime (PiPin):
-
-    return 10000; #TODO: REMOVE 
-
     measurement = 0
     # Discharge capacitor
     GPIO.setup(PiPin, GPIO.OUT)
